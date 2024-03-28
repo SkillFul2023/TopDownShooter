@@ -7,13 +7,13 @@ namespace TopDownShooter.Gameplay
         public void Initialize(State startState)
         {
             CurrentState = startState;
-            //startState.Enter();
+            startState.Enter();
         }
         public void ChangeState(State newState)
         {
-           // CurrentState.Exit();
+            CurrentState.Exit();
             CurrentState = newState;
-           // newState.Enter();
+            newState.Enter();
         }
     }
 }
