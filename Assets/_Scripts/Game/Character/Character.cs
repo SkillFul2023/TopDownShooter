@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace TopDownShooter.Gameplay
 {
-    public class Character : MonoBehaviour
+    public class Character : Unit
     {
-        [SerializeField] private CharacterState characterState;
+        [SerializeField] private CharacterStateEnum characterStateEnum;
         [SerializeField] private CharacterAnimationHelper characterAnimationHelper;
 
-        public StateMachine StateMachine;
-        public IdleState IdleState;
-        public ReadyForAttackState ReadyForAttackState;
+        public CharacterStateMachine CharacterStateMachine;
+        public CharacterIdleState CharacterIdleState;
+        public CharacterReadyForAttackState CharacterReadyForAttackState;
 
         public CharacterAnimationHelper GetCharacterAnimationHelper
         {
@@ -21,13 +21,17 @@ namespace TopDownShooter.Gameplay
         }
         private void Awake()
         {
-            StateMachine = new StateMachine();
-            IdleState = new IdleState(this, StateMachine);
-            ReadyForAttackState = new ReadyForAttackState(this, StateMachine);
+            CharacterStateMachine = new CharacterStateMachine();
+            CharacterIdleState = new CharacterIdleState(this, CharacterStateMachine);
+            CharacterReadyForAttackState = new CharacterReadyForAttackState(this, CharacterStateMachine);
         }
         private void Start()
         {
-            StateMachine.Initialize(IdleState);
+            CharacterStateMachine.Initialize(CharacterIdleState);
+        }
+        private void Update()
+        {
+            currentHealth.fillAmount = (float)HealthValue / GetMaxHealthValue;
         }
 
     }

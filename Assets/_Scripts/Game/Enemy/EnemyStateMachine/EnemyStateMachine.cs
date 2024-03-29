@@ -1,15 +1,14 @@
 namespace TopDownShooter.Gameplay
 {
-    public class StateMachine
+    public class EnemyStateMachine
     {
-        public State CurrentState { get; private set; }
-
-        public void Initialize(State startState)
+        public EnemyState CurrentState { get; private set; }
+        public void Initialize(EnemyState startState)
         {
             CurrentState = startState;
             startState.Enter();
         }
-        public void ChangeState(State newState)
+        public void ChangeState(EnemyState newState)
         {
             CurrentState.Exit();
             CurrentState = newState;
@@ -17,3 +16,4 @@ namespace TopDownShooter.Gameplay
         }
     }
 }
+

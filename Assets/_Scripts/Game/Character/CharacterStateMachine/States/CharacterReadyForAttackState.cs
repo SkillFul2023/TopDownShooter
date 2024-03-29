@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace TopDownShooter.Gameplay
 {
-    public class ReadyForAttackState : State
+    public class CharacterReadyForAttackState : CharacterState
     {
         private string animationName = "ReadyForAttack";
-        public ReadyForAttackState(Character character, StateMachine stateMachine) : base(character, stateMachine)
+        public CharacterReadyForAttackState(Character character, CharacterStateMachine stateMachine) : base(character, stateMachine)
         {
         }
 

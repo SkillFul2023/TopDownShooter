@@ -1,16 +1,13 @@
-using TopDownShooter.Enums;
-
 namespace TopDownShooter.Gameplay
 {
-    public abstract class State
+    public abstract class EnemyState 
     {
-        protected readonly Character character;
-        protected readonly StateMachine stateMachine;
-        protected CharacterState stateName;
+        protected readonly Enemy enemy;
+        protected readonly EnemyStateMachine stateMachine;
 
-        protected State(Character character, StateMachine stateMachine)
+        protected EnemyState(Enemy enemy, EnemyStateMachine stateMachine)
         {
-            this.character = character;
+            this.enemy = enemy;
             this.stateMachine = stateMachine;
         }
         public virtual void Enter()
@@ -29,6 +26,7 @@ namespace TopDownShooter.Gameplay
         {
 
         }
+
     }
 }
 

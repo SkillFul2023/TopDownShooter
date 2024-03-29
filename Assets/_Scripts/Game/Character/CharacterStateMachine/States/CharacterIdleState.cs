@@ -6,10 +6,10 @@ using TopDownShooter.Enums;
 
 namespace TopDownShooter.Gameplay
 {
-    public class IdleState : State
+    public class CharacterIdleState : CharacterState
     {
         private string animationName = "Idle";
-        public IdleState(Character character, StateMachine stateMachine) : base(character, stateMachine)
+        public CharacterIdleState(Character character, CharacterStateMachine stateMachine) : base(character, stateMachine)
         {
         }
 

@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 namespace TopDownShooter.Animation
 {
-    public class LegsAnimationHelper : MonoBehaviour
+    public class EnemyAnimationHelper : MonoBehaviour
     {
         [SerializeField] private Animator animator;
 
@@ -13,5 +12,4 @@ namespace TopDownShooter.Animation
             animator.SetBool(animationName, flag);
         }
     }
-
 }
