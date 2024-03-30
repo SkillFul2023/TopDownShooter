@@ -9,5 +9,6 @@ namespace TopDownShooter.Gameplay
         public int healthValue;
         public int attackValue;
         public float moveSpeed;
+        public float visionRange;
     }
 }

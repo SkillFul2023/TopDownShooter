@@ -1,3 +1,5 @@
+using TopDownShooter.Enums;
+
 namespace TopDownShooter.Gameplay
 {
     public class EnemyIdleState : EnemyState
@@ -10,11 +12,13 @@ namespace TopDownShooter.Gameplay
 
         public override void Enter()
         {
+            StateName = EnemyStateEnum.Idle;
+            enemy.SetCurrentState(StateName);
             enemy.GetEnemyAnimationHelper.SetAnimationBool(animationName, true);
         }
         public override void Exit()
         {
-            //character.GetCharacterAnimationHelper.SetAnimationBool(animationName, false);
+            enemy.GetEnemyAnimationHelper.SetAnimationBool(animationName, false);
         }
     }
 }

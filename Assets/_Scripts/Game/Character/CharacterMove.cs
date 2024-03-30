@@ -13,8 +13,8 @@ namespace TopDownShooter
         [SerializeField] private CharacterController characterController;
         [SerializeField] private LegsAnimationHelper legsAnimationHelper;
         [SerializeField] private Character character;
-        [SerializeField] private float movementSpeed;
 
+        private float movementSpeed;
         private IInputService inputService;
         private Camera camera;
         private string animationName = "Move";

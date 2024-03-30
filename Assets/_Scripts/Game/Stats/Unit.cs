@@ -31,5 +31,9 @@ namespace TopDownShooter.Gameplay
         {
             get => stats.maxHealtValue;
         }
+        public float GetVisionRange
+        {
+            get => stats.visionRange;
+        }
     }
 }

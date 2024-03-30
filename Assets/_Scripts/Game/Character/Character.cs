@@ -11,6 +11,8 @@ namespace TopDownShooter.Gameplay
         [SerializeField] private CharacterStateEnum characterStateEnum;
         [SerializeField] private CharacterAnimationHelper characterAnimationHelper;
 
+        [SerializeField] private CharacterAction characterAction;
+
         public CharacterStateMachine CharacterStateMachine;
         public CharacterIdleState CharacterIdleState;
         public CharacterReadyForAttackState CharacterReadyForAttackState;
@@ -24,6 +26,18 @@ namespace TopDownShooter.Gameplay
             CharacterStateMachine = new CharacterStateMachine();
             CharacterIdleState = new CharacterIdleState(this, CharacterStateMachine);
             CharacterReadyForAttackState = new CharacterReadyForAttackState(this, CharacterStateMachine);
+
+            characterAction = GetComponent<CharacterAction>();
+        }
+        private void OnEnable()
+        {
+            characterAction.addEnemyInTargetCollider += OnChangeCharacterStateReadyForAttack;
+            characterAction.removeEnemyInTargetCollider += OnChangeCharacterStateIdle;
+        }
+        private void OnDisable()
+        {
+            characterAction.addEnemyInTargetCollider -= OnChangeCharacterStateReadyForAttack;
+            characterAction.removeEnemyInTargetCollider -= OnChangeCharacterStateIdle;
         }
         private void Start()
         {
@@ -32,6 +46,15 @@ namespace TopDownShooter.Gameplay
         private void Update()
         {
             currentHealth.fillAmount = (float)HealthValue / GetMaxHealthValue;
+        }
+
+        private void OnChangeCharacterStateReadyForAttack()
+        {
+            CharacterStateMachine.ChangeState(CharacterReadyForAttackState);
+        }
+        private void OnChangeCharacterStateIdle()
+        {
+            CharacterStateMachine.ChangeState(CharacterIdleState);
         }
 
     }
