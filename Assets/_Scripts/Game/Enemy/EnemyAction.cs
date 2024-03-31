@@ -18,6 +18,7 @@ namespace TopDownShooter.Gameplay
         [SerializeField] private Enemy enemy;
 
         private int characterLayerMask = 1 << 7;
+        private float attackTimer;
 
         public Action moveFromTarget;
         public Action idleState;
@@ -75,7 +76,18 @@ namespace TopDownShooter.Gameplay
             }
             else
             {
-                attackTarget?.Invoke();
+                SetCharacterHealth(enemy.AttackValue);
+            }
+        }
+        public void SetCharacterHealth(int damage)
+        {
+            attackTarget?.Invoke();
+            attackTimer += Time.deltaTime;
+            if(attackTimer >= 60f/enemy.GetAttackPerMin)
+            {
+                Character character = target.GetComponent<Character>();
+                character.HealthValue -= damage;
+                attackTimer = 0;
             }
         }
         private float CheckDistanceNearEnemyAndTarget(Vector2 targetPosition, Vector2 unitPosition)

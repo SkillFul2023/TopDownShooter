@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using TopDownShooter.Animation;
 using TopDownShooter.Enums;
+using TopDownShooter.Interface;
+using Unity.VisualScripting;
 using UnityEngine;
 namespace TopDownShooter.Gameplay
 {
-    public class Enemy : Unit
+    public class Enemy : Unit, IDropItem
     {
         [SerializeField] private EnemyStateEnum enemyStateEnum;
         [SerializeField] private float attackRange;
+        [SerializeField] private float attackPerMin;
         [SerializeField] private EnemyAnimationHelper enemyAnimationHelper;
         [SerializeField] private LegsAnimationHelper legsAnimationHelper;
         [SerializeField] private EnemyAction enemyAction;
-
+        [SerializeField] private LootFromEnemy lootFromEnemy;
 
         public EnemyStateMachine EnemyStateMachine;
         public EnemyIdleState EnemyIdleState;
@@ -29,6 +32,10 @@ namespace TopDownShooter.Gameplay
         public float GetAttackRange
         {
             get => attackRange;
+        }
+        public float GetAttackPerMin
+        {
+            get => attackPerMin;
         }
 
         private void Awake()
@@ -68,7 +75,50 @@ namespace TopDownShooter.Gameplay
         }
         private void EnemyDie()
         {
+            DropItem();
             Destroy(gameObject);
+        }
+        public void DropItem()
+        {
+            int allItemChance = 0;
+            int i = 0;
+            int j = 0;
+
+            Dictionary<int, int[]> rangeItemDropChance = new Dictionary<int, int[]>();
+            
+            foreach (GameObject item in lootFromEnemy.GetDropItem)
+            {
+                int dropChance = item.GetComponent<Item>().GetDropChance;
+
+                int rangeFirstValue = 0 + allItemChance;
+                int rangeLastValue = rangeFirstValue + dropChance;
+
+                int[] range = new int[2];
+                range[0] = rangeFirstValue + 1; 
+                range[1] = rangeLastValue;
+
+                rangeItemDropChance.Add(i, range);
+                allItemChance += dropChance;
+                i++;
+            }
+            var randonNumber = Random.Range(0, allItemChance);
+            Debug.Log("Item drop " + randonNumber.ToString());
+
+            foreach (var k in rangeItemDropChance)
+            {
+                if (k.Value[0] <= randonNumber && k.Value[1] >= randonNumber)
+                {
+                    break;
+                }
+                else
+                {
+                    j++;
+                    continue;
+                }
+            }
+
+            Instantiate(lootFromEnemy.GetDropItem[j], transform.position, transform.rotation);
+
         }
         public void SetCurrentState(EnemyStateEnum currentState)
         {
@@ -105,7 +155,6 @@ namespace TopDownShooter.Gameplay
         {
             EnemyStateMachine.ChangeState(EnemyAttackState);
         }
-
     }
 }
 

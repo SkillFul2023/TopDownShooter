@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TopDownShooter.Enums;
 using UnityEngine;
 namespace TopDownShooter.Gameplay
 {
@@ -12,6 +13,8 @@ namespace TopDownShooter.Gameplay
 
         public override void Enter()
         {
+            StateName = CharacterStateEnum.ReadyForAttack;
+            character.SetCurrentState(StateName);
             character.GetCharacterAnimationHelper.SetAnimationBool(animationName, true);
         }
         public override void Exit()

@@ -12,8 +12,9 @@ namespace TopDownShooter.Gameplay
 
         private int enemyLayerMask = 1 << 6;
 
-        public Action addEnemyInTargetCollider;
-        public Action removeEnemyInTargetCollider;
+        public Action characterReadyForAttackState;
+        public Action characterIdleState;
+        public Action<GameObject> addItemInInventory;
 
         private void Update()
         {
@@ -26,7 +27,11 @@ namespace TopDownShooter.Gameplay
             {
                 target = targetsCollider[0].gameObject;
                 Debug.Log("TargetFind");
-                addEnemyInTargetCollider?.Invoke();
+                characterReadyForAttackState?.Invoke();
+            }
+            else
+            {
+                characterIdleState?.Invoke();
             }
         }
         public void TrackTarget(Vector2 unitPosition, float radius)
@@ -41,7 +46,7 @@ namespace TopDownShooter.Gameplay
                 if ((float)(Math.Round(Vector2.Distance(unitPosition, targetPosition), 0)) > radius)
                 {
                     target = null;
-                    removeEnemyInTargetCollider?.Invoke();
+                    characterIdleState?.Invoke();
                 }
             }
         }
@@ -49,15 +54,28 @@ namespace TopDownShooter.Gameplay
         {
             if (target != null)
             {
-                SetHealth(character.AttackValue);
+                SetEnemyHealth(character.AttackValue);
             }            
         }
-
-        public void SetHealth(int damage)
+        public void SetEnemyHealth(int damage)
         {
             Enemy enemy = target.GetComponent<Enemy>();
             enemy.HealthValue -= damage;
         }
+        private void OnTriggerEnter(Collider collider)
+        {
+            if(collider.gameObject.tag == "Item")
+            {
+                CatchUpItem(collider.gameObject);
+            }
+        }
+        private void CatchUpItem(GameObject item)
+        {
+            addItemInInventory?.Invoke(item);
+            //Destroy(item);
+            Debug.Log("Catch Up Item");
+        }
+
         private void OnDrawGizmos()
         {
             Vector2 position = transform.position;

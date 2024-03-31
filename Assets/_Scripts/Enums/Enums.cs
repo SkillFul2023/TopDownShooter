@@ -16,5 +16,12 @@ namespace TopDownShooter.Enums
         Zombie,
         Fleash
     }
+    public enum ItemNameEnum : byte
+    {
+        Bullets,
+        Gun,
+        Pistol
+
+    }
 
 }

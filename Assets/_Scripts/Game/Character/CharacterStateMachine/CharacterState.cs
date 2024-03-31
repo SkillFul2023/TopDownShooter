@@ -1,9 +1,12 @@
+using TopDownShooter.Enums;
+
 namespace TopDownShooter.Gameplay
 {
     public abstract class CharacterState
     {
         protected readonly Character character;
         protected readonly CharacterStateMachine stateMachine;
+        protected CharacterStateEnum StateName;
 
         protected CharacterState(Character character, CharacterStateMachine stateMachine)
         {

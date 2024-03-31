@@ -423,6 +423,7 @@ GameObject:
   - component: {fileID: 4921483350663236523}
   - component: {fileID: 3472828918542686576}
   - component: {fileID: 1300594722000886159}
+  - component: {fileID: 2844568491836951809}
   - component: {fileID: 8700044575152346725}
   m_Layer: 7
   m_Name: "\u0421haracter"
@@ -552,7 +553,20 @@ MonoBehaviour:
   targetsCollider: []
   target: {fileID: 0}
   character: {fileID: 4921483350663236523}
-  targetOn: 0
+--- !u!114 &2844568491836951809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5200814570141245814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c920398793137bf49ab7c5b506b04bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterAction: {fileID: 1300594722000886159}
+  itemGO: []
 --- !u!136 &8700044575152346725
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -708,6 +708,7 @@ GameObject:
   - component: {fileID: 8676192983206243464}
   - component: {fileID: 4440505315485152158}
   - component: {fileID: 4570023831449341716}
+  - component: {fileID: 1781454172323970765}
   - component: {fileID: 690316083021982767}
   - component: {fileID: 2791109199043271394}
   m_Layer: 6
@@ -748,16 +749,18 @@ MonoBehaviour:
   stats:
     maxHealtValue: 50
     healthValue: 50
-    attackValue: 3
+    attackValue: 5
     moveSpeed: 1
     visionRange: 4
   healthBar: {fileID: 4191320853147088708}
   currentHealth: {fileID: 3827682271382192489}
   enemyStateEnum: 0
   attackRange: 0.7
+  attackPerMin: 60
   enemyAnimationHelper: {fileID: 4570023831449341716}
   legsAnimationHelper: {fileID: 4785570587160493407}
-  enemyAction: {fileID: 0}
+  enemyAction: {fileID: 4440505315485152158}
+  lootFromEnemy: {fileID: 1781454172323970765}
 --- !u!114 &4440505315485152158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,6 +789,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 690316083021982767}
+--- !u!114 &1781454172323970765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448923865302935192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f79865f9fd4db4390c4f1f7395d327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItems:
+  - {fileID: 8603400835724000834, guid: 9fb7458d044a30e4cb6390225e1266d9, type: 3}
+  - {fileID: 9093155139152114177, guid: 6a6c27aa6248fcb4ea8c059d77c46bd6, type: 3}
+  - {fileID: 7564173122760847500, guid: f76e7a6f6c0efc54f8a3f21e16ec7549, type: 3}
 --- !u!95 &690316083021982767
 Animator:
   serializedVersion: 5

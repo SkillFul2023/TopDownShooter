@@ -15,6 +15,8 @@ namespace TopDownShooter.Gameplay
 
         public override void Enter()
         {
+            StateName = CharacterStateEnum.Idle;
+            character.SetCurrentState(StateName);
             character.GetCharacterAnimationHelper.SetAnimationBool(animationName, true);
         }
         public override void Exit()

@@ -31,13 +31,13 @@ namespace TopDownShooter.Gameplay
         }
         private void OnEnable()
         {
-            characterAction.addEnemyInTargetCollider += OnChangeCharacterStateReadyForAttack;
-            characterAction.removeEnemyInTargetCollider += OnChangeCharacterStateIdle;
+            characterAction.characterReadyForAttackState += OnChangeCharacterStateReadyForAttack;
+            characterAction.characterIdleState += OnChangeCharacterStateIdle;
         }
         private void OnDisable()
         {
-            characterAction.addEnemyInTargetCollider -= OnChangeCharacterStateReadyForAttack;
-            characterAction.removeEnemyInTargetCollider -= OnChangeCharacterStateIdle;
+            characterAction.characterReadyForAttackState -= OnChangeCharacterStateReadyForAttack;
+            characterAction.characterIdleState -= OnChangeCharacterStateIdle;
         }
         private void Start()
         {
@@ -47,7 +47,10 @@ namespace TopDownShooter.Gameplay
         {
             currentHealth.fillAmount = (float)HealthValue / GetMaxHealthValue;
         }
-
+        public void SetCurrentState(CharacterStateEnum currentState)
+        {
+            characterStateEnum = currentState;
+        }
         private void OnChangeCharacterStateReadyForAttack()
         {
             CharacterStateMachine.ChangeState(CharacterReadyForAttackState);
