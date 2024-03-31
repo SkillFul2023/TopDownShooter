@@ -7,7 +7,7 @@ namespace TopDownShooter.Gameplay
     public class Item : MonoBehaviour
     {
         [SerializeField] private ItemStats itemStats;
-        [SerializeField] private SpriteRenderer itemSprite;
+        [SerializeField] private Sprite itemSprite;
 
         public ItemNameEnum GetNameItem
         {
@@ -24,6 +24,10 @@ namespace TopDownShooter.Gameplay
         public int GetDropChance
         {
             get => itemStats.dropChance;
+        }
+        public Sprite GetItemSprite
+        {
+            get => itemSprite;
         }
     }
 }

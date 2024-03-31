@@ -10,12 +10,18 @@ namespace TopDownShooter.Gameplay
         [SerializeField] private GameObject target;
         [SerializeField] private Character character;
 
+        private Inventory inventory;
         private int enemyLayerMask = 1 << 6;
 
         public Action characterReadyForAttackState;
         public Action characterIdleState;
-        public Action<GameObject> addItemInInventory;
+        public Action<GameObject, bool> addItemInInventory;
+        public Action takeShot;
 
+        private void Awake()
+        {
+            inventory = GetComponent<Inventory>();
+        }
         private void Update()
         {
             TrackTarget(transform.position, character.GetVisionRange);
@@ -54,11 +60,33 @@ namespace TopDownShooter.Gameplay
         {
             if (target != null)
             {
-                SetEnemyHealth(character.AttackValue);
+                foreach(GameObject inventorySlot in inventory.GetInventorySlots)
+                {
+                    ItemSlot itemSlot = inventorySlot.GetComponent<ItemSlot>();
+                    if(itemSlot.ItemName != "Bullets" )
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if(itemSlot.CountItem > 0)
+                        {
+                            takeShot?.Invoke();
+                            SetEnemyHealth(character.AttackValue, target);
+                            break;
+                        }
+                        else
+                        {
+                            Debug.Log("No ammo");
+                            break;
+                        }
+                    }
+                }
             }            
         }
-        public void SetEnemyHealth(int damage)
+        public void SetEnemyHealth(int damage, GameObject target)
         {
+            Debug.Log("Attack");
             Enemy enemy = target.GetComponent<Enemy>();
             enemy.HealthValue -= damage;
         }
@@ -71,7 +99,7 @@ namespace TopDownShooter.Gameplay
         }
         private void CatchUpItem(GameObject item)
         {
-            addItemInInventory?.Invoke(item);
+            addItemInInventory?.Invoke(item, true);
             //Destroy(item);
             Debug.Log("Catch Up Item");
         }

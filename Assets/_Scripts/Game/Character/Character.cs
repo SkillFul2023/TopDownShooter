@@ -10,7 +10,6 @@ namespace TopDownShooter.Gameplay
     {
         [SerializeField] private CharacterStateEnum characterStateEnum;
         [SerializeField] private CharacterAnimationHelper characterAnimationHelper;
-
         [SerializeField] private CharacterAction characterAction;
 
         public CharacterStateMachine CharacterStateMachine;

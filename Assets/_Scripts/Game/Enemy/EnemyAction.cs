@@ -28,7 +28,6 @@ namespace TopDownShooter.Gameplay
         {
             get => target;
         }
-
         private void Update()
         {
             TrackTarget(transform.position, enemy.GetVisionRange);
